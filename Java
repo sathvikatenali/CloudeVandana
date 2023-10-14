@@ -1,0 +1,107 @@
+##1.Create an array with the values (1, 2, 3, 4, 5, 6, 7) and shuffle it.
+
+import java.util.Random;
+public class ShuffleArray {
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 4, 5, 6, 7};
+        shuffleArray(arr);
+        for (int element : arr) {
+            System.out.print(element + " ");
+        }
+    }
+    public static void shuffleArray(int[] arr) {
+        int n = arr.length;
+        Random rand = new Random();
+
+        for (int i = n - 1; i > 0; i--) {
+            int j = rand.nextInt(i + 1);
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+    }
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+##2.Enter a Roman Number as input and convert it to an integer. (Example: IX = 9).
+
+import java.util.*;
+
+class Roman {
+    int value(char r) {
+        if (r == 'I')
+            return 1;
+        if (r == 'V')
+            return 5;
+        if (r == 'X')
+            return 10;
+        if (r == 'L')
+            return 50;
+        if (r == 'C')
+            return 100;
+        if (r == 'D')
+            return 500;
+        if (r == 'M')
+            return 1000;
+        return -1;
+    }
+
+    int RomanToInt(String s) {
+        int total = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int s1 = value(s.charAt(i));
+            if (i + 1 < s.length()) {
+                int s2 = value(s.charAt(i + 1));
+                if (s1 >= s2) {
+                    total = total + s1;
+                } else {
+                    total = total - s1;
+                }
+            } else {
+                total = total + s1;
+            }
+        }
+        return total;
+    }
+
+    public static void main(String args[]) {
+        Roman ob = new Roman();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a Roman number: ");
+        String val = scanner.nextLine();
+        scanner.close(); 
+        int result = ob.RomanToInt(val);
+        System.out.println("The integer is: " + result);
+    }
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+##3.Check if the input is pangram or not. (A pangram is a sentence that contains all the alphabets from A to Z)
+
+import java.util.Scanner;
+
+public class PangramChecker {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a sentence: ");
+        String input = scanner.nextLine().toLowerCase(); 
+        scanner.close();
+        boolean[] alphabet = new boolean[26]; 
+        for (int i = 0; i < input.length(); i++) {
+            char ch = input.charAt(i);
+            if (ch >= 'a' && ch <= 'z') {
+                alphabet[ch - 'a'] = true; 
+            }
+        }
+        boolean isPangram = true;
+        for (boolean letter : alphabet) {
+            if (!letter) {
+                isPangram = false;
+                break;
+            }
+        }
+        if (isPangram) {
+            System.out.println("It is a pangram.");
+        } else {
+            System.out.println("It is not a pangram.");
+        }
+    }
+}
